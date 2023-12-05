@@ -30,7 +30,14 @@ class ActivityController extends Controller
         // Create a new activity
         $activity = Activity::create($validatedData);
 
+
         // Return a response
         return response()->json(['message' => 'Activity created successfully', 'data' => $activity], 201);
+    }
+
+    public function show()
+    {
+        $activity = Activity::all();
+        return response()->json([$activity]);
     }
 }

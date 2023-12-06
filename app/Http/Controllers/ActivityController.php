@@ -40,4 +40,28 @@ class ActivityController extends Controller
         $activity = Activity::all();
         return response()->json([$activity]);
     }
+    
+public function update(Request $request, $id)
+{
+    $activity = Activity::find($id);
+
+    if (!$activity) {
+        return response()->json(['error' => 'Activity not found'], 404);
+    }
+
+    $activity->name = $request->input('name');
+    $activity->date = $request->input('date');
+    $activity->time_start = date('H:i:s', strtotime($request->input('time_start')));
+    $activity->time_end = date('H:i:s', strtotime($request->input('time_end')));
+    $activity->college = $request->input('college');
+    $activity->program = $request->input('program');
+    $activity->year_level = $request->input('year_level');
+
+    $activity->save();
+
+    return response()->json([$activity]);
+}
+
+    
+
 }

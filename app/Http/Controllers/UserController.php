@@ -11,29 +11,28 @@ class UserController extends Controller
 {
     public function login(Request $request)
     {
-        $credentials = [
-            'email' => $request->email,
-            'password' => $request->password
-        ];
+        $parameters = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
 
-        if (!Auth::attempt($credentials)) {
+        if (Auth::attempt($parameters)) {
+            $user = User::where('email', $request->email)->first();
+            $token = $user->createToken('auth_token')->plainTextToken;
             return response()->json([
-                'success' => false,
+                'auth' => true,
+                'message' => 'Success',
+                'user' => $user,
+                'token' => $token, // Include user type in the response
+            ]);
+        } else {
+            return response()->json([
+                'auth' => false,
                 'message' => 'Email or password is incorrect',
                 'user' => null
             ]);
         }
 
-        $user = $request->user();
-        $token = $user->createToken('api_db_testing_token')->accessToken;
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Success',
-            'user' => Auth::user(),
-            'token' => $token,
-            'type' => Auth::user()->type // Include user type in the response
-        ]);
     }
 
     public function register(Request $request)

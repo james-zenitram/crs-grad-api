@@ -18,5 +18,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'ajbgeriane2020@plm.edu.ph',
             'password' => 'devoverload'
         ]);
+
+        \App\Models\User::create([
+            'type' => 'admin',
+            'name' => 'James',
+            'email' => 'jammartinez2019@plm.edu.ph',
+            'password' => '1a2b3c4d'
+        ]);
     }
 }

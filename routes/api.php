@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\ActivityShowController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,8 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('register', [UserController::class,'register']);
+
 Route::post('login', [UserController::class,'login']);
 Route::post('activities', [ActivityController::class, 'store']);
+Route::get('activities', [ActivityController::class, 'show']);
+Route::put('activitiesupdate/{id}', [ActivityController::class, 'update']);
 
 

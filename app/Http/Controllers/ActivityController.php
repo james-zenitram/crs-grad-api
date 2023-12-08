@@ -30,7 +30,38 @@ class ActivityController extends Controller
         // Create a new activity
         $activity = Activity::create($validatedData);
 
+
         // Return a response
         return response()->json(['message' => 'Activity created successfully', 'data' => $activity], 201);
     }
+
+    public function show()
+    {
+        $activity = Activity::all();
+        return response()->json([$activity]);
+    }
+    
+public function update(Request $request, $id)
+{
+    $activity = Activity::find($id);
+
+    if (!$activity) {
+        return response()->json(['error' => 'Activity not found'], 404);
+    }
+
+    $activity->name = $request->input('name');
+    $activity->date = $request->input('date');
+    $activity->time_start = date('H:i:s', strtotime($request->input('time_start')));
+    $activity->time_end = date('H:i:s', strtotime($request->input('time_end')));
+    $activity->college = $request->input('college');
+    $activity->program = $request->input('program');
+    $activity->year_level = $request->input('year_level');
+
+    $activity->save();
+
+    return response()->json([$activity]);
+}
+
+    
+
 }

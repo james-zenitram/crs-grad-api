@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        /*
         \App\Models\User::create([
             'type' => 'admin',
             'name' => 'Aj',
@@ -24,6 +25,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'James',
             'email' => 'jammartinez2019@plm.edu.ph',
             'password' => '1a2b3c4d'
+        ]);
+        */
+        \App\Models\UpdateBlock::create([
+            'assigned_subject' => 'BSCS',
+            'aysem' => '2023-2024',
+            'slot' => '55'
+
         ]);
     }
 }
